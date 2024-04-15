@@ -12,10 +12,10 @@ import Combine
 struct Timer_bootcampApp: App {
     private var cancellables: Set<AnyCancellable> = []
     init(){
-        orientationSenor()
+        orientationSensor()
     }
     /// Function to fire a result when the orientation of the simulator changes using the notificationcenter & publisher..
-    mutating func orientationSenor () {
+    mutating func orientationSensor () {
         NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
             .sink { _ in
                 let currentOrientation = UIDevice.current.orientation
@@ -23,10 +23,9 @@ struct Timer_bootcampApp: App {
             }
             .store(in: &cancellables)
     }
-    
     var body: some Scene {
         WindowGroup {
-           TimerView()
+           JustPublisherView()
         }
     }
 }

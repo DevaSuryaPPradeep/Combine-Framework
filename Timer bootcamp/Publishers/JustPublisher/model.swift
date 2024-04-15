@@ -9,6 +9,6 @@ import Foundation
 
 /// Model 
 struct modelClass {
-    let name: String
-    let loginID: String
+    let name: String?
+    let loginID: String?
 }

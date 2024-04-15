@@ -34,6 +34,7 @@ class CurrentValueViewmodel :ObservableObject {
     @Published var dataArray: [String] = []
     @Published private var dataManager = DataManager()
     @Published var errorMessage: String = ""
+    @Published var showAlert: Bool = false
     var cancellables =  Set<AnyCancellable>()
     
     init(){
@@ -42,7 +43,8 @@ class CurrentValueViewmodel :ObservableObject {
     
     /// Function to add the Subscriber.
     func updateUI() {
-        dataManager.currentValuePublisher
+        dataManager.passThroughValue
+        
         // Sequence Operations.
         /*
          //.first()
@@ -75,6 +77,7 @@ class CurrentValueViewmodel :ObservableObject {
          // .output(at: 4) // To get result at a particular index.
          // .output(in:2..<4)
          */
+        
         //Mathematic Operations.
         /*
          //            .max()
@@ -98,6 +101,7 @@ class CurrentValueViewmodel :ObservableObject {
          //                return Int2 == Int3
          //            })
          */
+        
         //Filter / Reducing operation
         /*
          //            .tryMap({ value in
@@ -143,9 +147,46 @@ class CurrentValueViewmodel :ObservableObject {
          //                .collect(3)
          //.allSatisfy({$0 < 100})
          */
+        
         //Timing operations.
-        // .debounce(for: 0.5, scheduler: DispatchQueue.main)
-        //        .delay(for: 4, scheduler: DispatchQueue.main) // this will add a delay in the
+        /*
+         // .debounce(for: 0.5, scheduler: DispatchQueue.main)
+         //        .delay(for: 4, scheduler: DispatchQueue.main) // this will add a delay in the
+         //            .throttle(for: 2, scheduler: DispatchQueue.main, latest: false)
+         //            .retry(3)
+         //            .timeout(3, scheduler: DispatchQueue.main)
+         */
+        
+        //      Multiple Publishers  & Subscribes
+        /*
+         //            .combineLatest(dataManager.boolPublisher)
+         //            .compactMap({ (Int1, Bool2) in
+         //                if Bool2 {
+         //                    return "\(Int1)"
+         //                }
+         //                else {
+         //                    return   nil
+         //                }
+         //            })
+         //                    .compactMap({$1 ? "\($0)" : nil})
+         //            .removeDuplicates()
+         .combineLatest(dataManager.boolPublisher,dataManager.intPublisher)
+         //            .merge(with: dataManager.intPublisher)
+         //                                   .zip(dataManager.boolPublisher,dataManager        .intPublisher)
+         //            .map({tuple in`
+         //                return String(tuple.0) + tuple.1.description +                   String(tuple.2)
+         //            })
+         .tryMap({ value in
+         if value ==  5 {
+         throw URLError(.badServerResponse)
+         }
+         return value
+         })
+         .catch({ error in
+         return self.dataManager.intPublisher
+         })
+         // helps to catch error while publishing and switch the publisher while the first publisher throws an error.
+         */
             .map({String($0)})
             .sink { completionResult in
                 switch completionResult {
@@ -156,18 +197,21 @@ class CurrentValueViewmodel :ObservableObject {
                 }
             } receiveValue: { returnValue in
                 self.dataArray.append(returnValue)
-                //                self.dataArray.append(contentsOf: returnValue)
+                //                 self.dataArray.append(contentsOf:returnValue)
             }
             .store(in: &cancellables)
     }
 }
+
 /// Data Provider
-class DataManager: ObservableObject{
+class DataManager {
     
     /// Published Property and publisher declarations.
     //  @Published var observedObj: String  = ""
-      let currentValuePublisher = CurrentValueSubject<Int,Error>(100)
-   // let passThroughValue =  PassthroughSubject<Int,Error>()
+    //let currentValuePublisher = CurrentValueSubject<Int,Error>(100)
+    let passThroughValue =  PassthroughSubject<Int,Error>()
+    let boolPublisher =  PassthroughSubject<Bool,Error>()
+    let intPublisher =  PassthroughSubject <Int ,Error> ()
     
     init() {
         addDuplicateData()
@@ -175,18 +219,25 @@ class DataManager: ObservableObject{
     
     /// Function to provide data for the publishers.
     private func addDuplicateData () {
-        let items = [0,22,1,2,4,5,6,77,77,88,88]
+        //        let items = Array(0...10)
+        let items = [1,2,3,4,5,6,7,8,9,10]
         for x in items.indices {
             DispatchQueue.main.asyncAfter(deadline: .now()+Double(x)) {
-                print("Value of x--->\(x)")
-                self.currentValuePublisher.send(items[x])
+                self.passThroughValue.send(items[x])
+                if (x>3) && (x<8) {
+                    self.intPublisher.send(999)
+                    self.boolPublisher.send(true)
+                }
+                else {
+                    self.boolPublisher.send(false)
+                }
                 if x == items.indices.last {
-                    self.currentValuePublisher.send(completion: .finished)
+                    self.passThroughValue.send(completion: .finished)
                     print("Subscription ends here...")
                 }
             }
         }
-        //Instance to illustrate the usage of debounce the timing operator.
+        //Instance to illustrate the usage of ".debounce" the timing operator.
         /*
          DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
          self.passThroughValue.send(1)

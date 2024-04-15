@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A5DFF292BCD264F0083227A /* FuturesPublisherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5DFF282BCD264F0083227A /* FuturesPublisherViewModel.swift */; };
+		5A5DFF2B2BCD26790083227A /* FuturePublisherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5DFF2A2BCD26780083227A /* FuturePublisherView.swift */; };
 		5A70335A2BBFD1ED0061F91F /* Timer_bootcampApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7033592BBFD1ED0061F91F /* Timer_bootcampApp.swift */; };
 		5A70335C2BBFD1ED0061F91F /* SalesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A70335B2BBFD1ED0061F91F /* SalesView.swift */; };
 		5A70335E2BBFD1F00061F91F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A70335D2BBFD1F00061F91F /* Assets.xcassets */; };
@@ -20,8 +22,8 @@
 		5AA745C82BC536380073C5C4 /* CurrentValuePublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA745C72BC536370073C5C4 /* CurrentValuePublisher.swift */; };
 		5AA745D02BC537700073C5C4 /* CurrentValueViewmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA745CF2BC537700073C5C4 /* CurrentValueViewmodel.swift */; };
 		5AA745D32BC537E90073C5C4 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA745D22BC537E90073C5C4 /* DataManager.swift */; };
-		5ADC68E02BC3D4C9005BBDF3 /* JustPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADC68DF2BC3D4C9005BBDF3 /* JustPublisher.swift */; };
-		5ADC68E22BC3D509005BBDF3 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADC68E12BC3D509005BBDF3 /* ViewModel.swift */; };
+		5ADC68E02BC3D4C9005BBDF3 /* JustPublisherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADC68DF2BC3D4C9005BBDF3 /* JustPublisherView.swift */; };
+		5ADC68E22BC3D509005BBDF3 /* JustPublisherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADC68E12BC3D509005BBDF3 /* JustPublisherViewModel.swift */; };
 		5ADC68E42BC3E92A005BBDF3 /* model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADC68E32BC3E92A005BBDF3 /* model.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5A5DFF282BCD264F0083227A /* FuturesPublisherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuturesPublisherViewModel.swift; sourceTree = "<group>"; };
+		5A5DFF2A2BCD26780083227A /* FuturePublisherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuturePublisherView.swift; sourceTree = "<group>"; };
 		5A7033562BBFD1ED0061F91F /* Timer bootcamp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Timer bootcamp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A7033592BBFD1ED0061F91F /* Timer_bootcampApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer_bootcampApp.swift; sourceTree = "<group>"; };
 		5A70335B2BBFD1ED0061F91F /* SalesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesView.swift; sourceTree = "<group>"; };
@@ -59,8 +63,8 @@
 		5AA745C72BC536370073C5C4 /* CurrentValuePublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentValuePublisher.swift; sourceTree = "<group>"; };
 		5AA745CF2BC537700073C5C4 /* CurrentValueViewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentValueViewmodel.swift; sourceTree = "<group>"; };
 		5AA745D22BC537E90073C5C4 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		5ADC68DF2BC3D4C9005BBDF3 /* JustPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustPublisher.swift; sourceTree = "<group>"; };
-		5ADC68E12BC3D509005BBDF3 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		5ADC68DF2BC3D4C9005BBDF3 /* JustPublisherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustPublisherView.swift; sourceTree = "<group>"; };
+		5ADC68E12BC3D509005BBDF3 /* JustPublisherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustPublisherViewModel.swift; sourceTree = "<group>"; };
 		5ADC68E32BC3E92A005BBDF3 /* model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,6 +93,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A5DFF272BCD0E9A0083227A /* Future Publisher */ = {
+			isa = PBXGroup;
+			children = (
+				5A5DFF282BCD264F0083227A /* FuturesPublisherViewModel.swift */,
+				5A5DFF2A2BCD26780083227A /* FuturePublisherView.swift */,
+			);
+			path = "Future Publisher";
+			sourceTree = "<group>";
+		};
 		5A70334D2BBFD1ED0061F91F = {
 			isa = PBXGroup;
 			children = (
@@ -112,10 +125,10 @@
 		5A7033582BBFD1ED0061F91F /* Timer bootcamp */ = {
 			isa = PBXGroup;
 			children = (
-				5ADC68DE2BC3D431005BBDF3 /* Publishers */,
-				5A7033892BC008B60061F91F /* CountDown TImer */,
 				5A7033882BC0085F0061F91F /* Normal Timer */,
 				5A7033872BC0081E0061F91F /* Publisher+sink modifier */,
+				5ADC68DE2BC3D431005BBDF3 /* Publishers */,
+				5A7033892BC008B60061F91F /* CountDown TImer */,
 				5A7033592BBFD1ED0061F91F /* Timer_bootcampApp.swift */,
 				5A70335D2BBFD1F00061F91F /* Assets.xcassets */,
 				5A70335F2BBFD1F00061F91F /* Preview Content */,
@@ -210,8 +223,8 @@
 		5ADC68DD2BC3D3F5005BBDF3 /* JustPublisher */ = {
 			isa = PBXGroup;
 			children = (
-				5ADC68DF2BC3D4C9005BBDF3 /* JustPublisher.swift */,
-				5ADC68E12BC3D509005BBDF3 /* ViewModel.swift */,
+				5ADC68DF2BC3D4C9005BBDF3 /* JustPublisherView.swift */,
+				5ADC68E12BC3D509005BBDF3 /* JustPublisherViewModel.swift */,
 				5ADC68E32BC3E92A005BBDF3 /* model.swift */,
 			);
 			path = JustPublisher;
@@ -220,6 +233,7 @@
 		5ADC68DE2BC3D431005BBDF3 /* Publishers */ = {
 			isa = PBXGroup;
 			children = (
+				5A5DFF272BCD0E9A0083227A /* Future Publisher */,
 				5AA745C62BC535E10073C5C4 /* CurrentValuePublisher */,
 				5ADC68DD2BC3D3F5005BBDF3 /* JustPublisher */,
 			);
@@ -358,12 +372,14 @@
 			files = (
 				5A7033862BC007D00061F91F /* TimerView.swift in Sources */,
 				5AA745C82BC536380073C5C4 /* CurrentValuePublisher.swift in Sources */,
+				5A5DFF292BCD264F0083227A /* FuturesPublisherViewModel.swift in Sources */,
 				5AA745D02BC537700073C5C4 /* CurrentValueViewmodel.swift in Sources */,
-				5ADC68E22BC3D509005BBDF3 /* ViewModel.swift in Sources */,
+				5ADC68E22BC3D509005BBDF3 /* JustPublisherViewModel.swift in Sources */,
 				5A70335C2BBFD1ED0061F91F /* SalesView.swift in Sources */,
 				5A70335A2BBFD1ED0061F91F /* Timer_bootcampApp.swift in Sources */,
+				5A5DFF2B2BCD26790083227A /* FuturePublisherView.swift in Sources */,
 				5A7033842BBFDA2A0061F91F /* timerDemo.swift in Sources */,
-				5ADC68E02BC3D4C9005BBDF3 /* JustPublisher.swift in Sources */,
+				5ADC68E02BC3D4C9005BBDF3 /* JustPublisherView.swift in Sources */,
 				5AA745D32BC537E90073C5C4 /* DataManager.swift in Sources */,
 				5A70338B2BC00A9E0061F91F /* TimerViewmodel.swift in Sources */,
 				5ADC68E42BC3E92A005BBDF3 /* model.swift in Sources */,
