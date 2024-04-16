@@ -33,9 +33,8 @@ class CurrentValueViewmodel :ObservableObject {
     
     /// Published Property & varaible  declarations.
     @Published var dataArray: [String] = []
-    @Published private var dataManager = DataManager()
+    private let  dataManager = DataManager()
     @Published var errorMessage: String = ""
-    @Published var showAlert: Bool = false
     var cancellables =  Set<AnyCancellable>()
     
     init(){
@@ -104,29 +103,29 @@ class CurrentValueViewmodel :ObservableObject {
         
         //Filter / Reducing operation
         /*
+         //             .map({String($0)})
          //            .tryMap({ value in
          //                if value == 5 {
          //                    throw URLError(.badServerResponse)
          //                }
          //                return String(value)
          //            })
-         //.map({String($0)})
-         .compactMap({ value in
-         if value == 5 {
-         return nil
-         }
-         return String(value)
-         })
-         //            .tryCompactMap({ value in
-         //                if value == 5 {
-         //                    return "\(URLError(.badServerResponse))"
-         //                }
-         //                return "\(value)"
-         //            })
-         //            .tryCompactMap({ value in
-         //                if value == 5 {
-         //                    return nil
-         //                }
+         //             .compactMap({ value in
+         //                  if value == 5 {
+         //                     return nil
+         //              }
+         //                   return String(value)
+         //              })
+         //              .tryCompactMap({ value in
+         //                 if value == 5 {
+         //                     return nil
+         //                                 }
+         //                  else if value == 12 {
+         //                      throw URLError(.badServerResponse)
+         //                                  }
+         //                           return String(value)
+         //                                  })
+         //                                   }
          //                return String(value)
          //            })
          //            .filter({($0 > 3) && ($0 < 7)})
@@ -188,12 +187,7 @@ class CurrentValueViewmodel :ObservableObject {
          // helps to catch error while publishing and switch the publisher while the first publisher throws an error.
          */
         dataManager.passThroughValue
-            .compactMap({ value in
-                if value == 5 {
-                    return nil
-                }
-                return String(describing: value)
-            })
+            .map({String($0)})
             .sink { completionResult in
                 switch completionResult {
                 case .finished:
@@ -203,7 +197,7 @@ class CurrentValueViewmodel :ObservableObject {
                 }
             } receiveValue: { returnValue in
                 self.dataArray.append(returnValue)
-                //                 self.dataArray.append(contentsOf:returnValue)
+                //  self.dataArray.append(contentsOf:returnValue)
             }
             .store(in: &cancellables)
     }
@@ -214,8 +208,8 @@ class DataManager {
     
     /// Published Property and publisher declarations.
     //  @Published var observedObj: String  = ""
-   // let currentValuePublisher = CurrentValueSubject<Int,Error>(11)
-        let passThroughValue =  PassthroughSubject<Int?,Error>()
+   //  let currentValuePublisher = CurrentValueSubject<Int,Never>(11)
+    let passThroughValue =  PassthroughSubject<Int,Error>()
     //    let boolPublisher =  PassthroughSubject<Bool,Error>()
     //    let intPublisher =  PassthroughSubject <Int ,Error> ()
     
@@ -226,7 +220,7 @@ class DataManager {
     /// Function to provide data for the publishers.
     private func addDuplicateData () {
         //        let items = Array(0...10)
-        let items = [1,2,3,nil,5,6,7,8,9,10]
+        let items = [1,2,3,4,5,5,6,7,8,9,10]
         for x in items.indices {
             DispatchQueue.main.asyncAfter(deadline: .now()+Double(x)) {
                 self.passThroughValue.send(items[x])
