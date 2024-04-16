@@ -7,8 +7,8 @@
 
 import Foundation
 
-/// Model 
-struct modelClass {
-    let name: String?
-    let loginID: String?
-}
+///// Model 
+//struct modelClass {
+//    let name: String
+//    let loginID: String
+//}

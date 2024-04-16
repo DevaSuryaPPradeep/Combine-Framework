@@ -6,26 +6,25 @@
 
 
 import SwiftUI
+import Combine
 
 struct JustPublisherView: View {
     
     /// State property & State object decalarations.
-    @StateObject var viewModel = JustPublisherViewModel()
-    @State var id: String = ""
-    @State var name: String = ""
-    
+    @StateObject var viewModel: JustPublisherViewModel = JustPublisherViewModel()
+  
     var body: some View {
         VStack{
-            Text("\(self.name)")
+            Text("\(viewModel.projectedText.name)")
                 .padding()
                 .bold()
-            Text("\(self.id)")
+            Text("\(viewModel.projectedText.loginID)")
                 .padding()
                 .bold()
             Button {
-                textGenerator()
+                viewModel.updateValue()
             }label: {
-                Text("Click Here")
+                Text("Generate ")
                     .padding()
                     .foregroundStyle(Color.white)
                     .bold()
@@ -35,15 +34,41 @@ struct JustPublisherView: View {
         }
     }
     
-    /// Assigns a data to the state properties on Clicking a button.
-    func textGenerator () {
-        self.name =  viewModel.projectedText.name ?? ""
-        self.id = viewModel.projectedText.loginID ?? ""
-    }
+   
 }
 
 #Preview {
     JustPublisherView()
 }
 
+/// ViewModel
+class JustPublisherViewModel: ObservableObject {
+    
+    /// Published property declarations.
+    @Published var projectedText: modelClass = modelClass(name: "", loginID: " ")
+        
+    /// Function to specify subcribtion from the publisher.
+    func updateValue()  {
+        let  textValue = Just(modelClass(name: "Manu", loginID: "2345"))
+        subscribeTo(PublisherName: textValue)
+    }
+    
+    /// Fumction to specifically include subscribing functionality with .sink() modifier with completion closure.
+    /// - Parameter PublisherName: Instance of the publisher .
+    func subscribeTo(PublisherName: Just<modelClass>) {
+        _ = PublisherName
+            .sink(receiveCompletion: {completionValue in
+            print("Result of completion -----> \(completionValue)")
+        },
+                  receiveValue: { value in
+            print("value ------- >\(value)")
+            self.projectedText = value
+        })
+    }
+}
 
+/// Model
+struct modelClass {
+    let name: String
+    let loginID: String
+}

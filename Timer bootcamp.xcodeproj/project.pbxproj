@@ -233,9 +233,9 @@
 		5ADC68DE2BC3D431005BBDF3 /* Publishers */ = {
 			isa = PBXGroup;
 			children = (
+				5ADC68DD2BC3D3F5005BBDF3 /* JustPublisher */,
 				5A5DFF272BCD0E9A0083227A /* Future Publisher */,
 				5AA745C62BC535E10073C5C4 /* CurrentValuePublisher */,
-				5ADC68DD2BC3D3F5005BBDF3 /* JustPublisher */,
 			);
 			path = Publishers;
 			sourceTree = "<group>";

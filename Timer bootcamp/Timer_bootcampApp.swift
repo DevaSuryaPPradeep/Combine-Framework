@@ -10,6 +10,7 @@ import Combine
 
 @main
 struct Timer_bootcampApp: App {
+    /// Variable declarations.
     private var cancellables: Set<AnyCancellable> = []
     init(){
         orientationSensor()

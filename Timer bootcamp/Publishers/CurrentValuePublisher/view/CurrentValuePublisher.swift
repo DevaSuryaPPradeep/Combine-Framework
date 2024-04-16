@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 
+/// View
 struct CurrentValuePublisher: View {
     @StateObject private var viewModelData = CurrentValueViewmodel()
     var body: some View {
@@ -43,7 +44,6 @@ class CurrentValueViewmodel :ObservableObject {
     
     /// Function to add the Subscriber.
     func updateUI() {
-        dataManager.passThroughValue
         
         // Sequence Operations.
         /*
@@ -73,7 +73,7 @@ class CurrentValueViewmodel :ObservableObject {
          //                return  value < 6
          //            })
          //  .prefix(4)
-         // .prefix(while: { $0 < 5})
+         // .prefix(while: {$0 < 5})
          // .output(at: 4) // To get result at a particular index.
          // .output(in:2..<4)
          */
@@ -187,7 +187,13 @@ class CurrentValueViewmodel :ObservableObject {
          })
          // helps to catch error while publishing and switch the publisher while the first publisher throws an error.
          */
-            .map({String($0)})
+        dataManager.passThroughValue
+            .compactMap({ value in
+                if value == 5 {
+                    return nil
+                }
+                return String(describing: value)
+            })
             .sink { completionResult in
                 switch completionResult {
                 case .finished:
@@ -208,10 +214,10 @@ class DataManager {
     
     /// Published Property and publisher declarations.
     //  @Published var observedObj: String  = ""
-    //let currentValuePublisher = CurrentValueSubject<Int,Error>(100)
-    let passThroughValue =  PassthroughSubject<Int,Error>()
-    let boolPublisher =  PassthroughSubject<Bool,Error>()
-    let intPublisher =  PassthroughSubject <Int ,Error> ()
+   // let currentValuePublisher = CurrentValueSubject<Int,Error>(11)
+        let passThroughValue =  PassthroughSubject<Int?,Error>()
+    //    let boolPublisher =  PassthroughSubject<Bool,Error>()
+    //    let intPublisher =  PassthroughSubject <Int ,Error> ()
     
     init() {
         addDuplicateData()
@@ -220,17 +226,17 @@ class DataManager {
     /// Function to provide data for the publishers.
     private func addDuplicateData () {
         //        let items = Array(0...10)
-        let items = [1,2,3,4,5,6,7,8,9,10]
+        let items = [1,2,3,nil,5,6,7,8,9,10]
         for x in items.indices {
             DispatchQueue.main.asyncAfter(deadline: .now()+Double(x)) {
                 self.passThroughValue.send(items[x])
-                if (x>3) && (x<8) {
-                    self.intPublisher.send(999)
-                    self.boolPublisher.send(true)
-                }
-                else {
-                    self.boolPublisher.send(false)
-                }
+                //                if (x>3) && (x<8) {
+                //                    self.intPublisher.send(999)
+                //                    self.boolPublisher.send(true)
+                //                }
+                //                else {
+                //                    self.boolPublisher.send(false)
+                //                }
                 if x == items.indices.last {
                     self.passThroughValue.send(completion: .finished)
                     print("Subscription ends here...")
