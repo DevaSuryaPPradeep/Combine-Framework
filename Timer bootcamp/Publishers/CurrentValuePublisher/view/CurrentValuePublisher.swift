@@ -44,6 +44,7 @@ class CurrentValueViewmodel :ObservableObject {
     /// Function to add the Subscriber.
     func updateUI() {
         
+        
         // Sequence Operations.
         /*
          //.first()
@@ -93,7 +94,7 @@ class CurrentValueViewmodel :ObservableObject {
          //            .min(by: { Int3, Int4 in
          //                return Int4 > Int3
          //            })
-         //            .tryMin(by: { Int2, Int3 in
+         //            .tryMin(by : { Int2, Int3 in
          //                if  Int2 > Int3 {
          //                    throw URLError(.badServerResponse)
          //                }
@@ -107,25 +108,25 @@ class CurrentValueViewmodel :ObservableObject {
          //            .tryMap({ value in
          //                if value == 5 {
          //                    throw URLError(.badServerResponse)
-         //                }
+         //             }
          //                return String(value)
          //            })
          //             .compactMap({ value in
          //                  if value == 5 {
          //                     return nil
-         //              }
+         //             }
          //                   return String(value)
-         //              })
+         //             })
          //              .tryCompactMap({ value in
          //                 if value == 5 {
-         //                     return nil
-         //                                 }
-         //                  else if value == 12 {
-         //                      throw URLError(.badServerResponse)
-         //                                  }
-         //                           return String(value)
-         //                                  })
-         //                                   }
+         //                   return nil
+         //             }
+         //                 else if value == 12 {
+         //                    throw URLError(.badServerResponse)
+         //             }
+         //                     return String(value)
+         //             })
+         //              }
          //                return String(value)
          //            })
          //            .filter({($0 > 3) && ($0 < 7)})
@@ -142,6 +143,7 @@ class CurrentValueViewmodel :ObservableObject {
          //            })
          //            .reduce(0, {$0 + $1})
          //            .scan(0,{$0 + $1})
+         //              .scan(0, +)
          //            .collect()
          //                .collect(3)
          //.allSatisfy({$0 < 100})
@@ -169,12 +171,17 @@ class CurrentValueViewmodel :ObservableObject {
          //            })
          //                    .compactMap({$1 ? "\($0)" : nil})
          //            .removeDuplicates()
-         .combineLatest(dataManager.boolPublisher,dataManager.intPublisher)
-         //            .merge(with: dataManager.intPublisher)
-         //                                   .zip(dataManager.boolPublisher,dataManager        .intPublisher)
-         //            .map({tuple in`
-         //                return String(tuple.0) + tuple.1.description +                   String(tuple.2)
+         //                                combineLatest(dataManager.boolPublisher,dataManager.intPublisher)
+         //            .compactMap({ (Int1, Bool3, Int2) in
+         //                if Bool3 {
+         //                    return String(Int1)
+         //                }
+         //                return "n/a"
          //            })
+         //                                   .zip(dataManager.boolPublisher,dataManager.intPublisher)
+         .map({
+         tuple in  return String(tuple.0) + tuple.1.description + String(tuple.2)
+         })
          .tryMap({ value in
          if value ==  5 {
          throw URLError(.badServerResponse)
@@ -186,9 +193,10 @@ class CurrentValueViewmodel :ObservableObject {
          })
          // helps to catch error while publishing and switch the publisher while the first publisher throws an error.
          */
+    
         dataManager.passThroughValue
             .map({String($0)})
-            .sink { completionResult in
+                    .sink { completionResult in
                 switch completionResult {
                 case .finished:
                     break
@@ -197,21 +205,25 @@ class CurrentValueViewmodel :ObservableObject {
                 }
             } receiveValue: { returnValue in
                 self.dataArray.append(returnValue)
-                //  self.dataArray.append(contentsOf:returnValue)
+//                   self.dataArray.append(contentsOf:returnValue)
             }
             .store(in: &cancellables)
     }
 }
 
+
+
+
 /// Data Provider
 class DataManager {
     
     /// Published Property and publisher declarations.
-    //  @Published var observedObj: String  = ""
-   //  let currentValuePublisher = CurrentValueSubject<Int,Never>(11)
+    //  let currentValuePublisher = CurrentValueSubject<Int,Never>(11)
     let passThroughValue =  PassthroughSubject<Int,Error>()
-    //    let boolPublisher =  PassthroughSubject<Bool,Error>()
-    //    let intPublisher =  PassthroughSubject <Int ,Error> ()
+    /*
+    // let boolPublisher =  PassthroughSubject<Bool,Error>()
+    // let intPublisher =  PassthroughSubject <Int ,Error> ()
+    */
     
     init() {
         addDuplicateData()
@@ -219,24 +231,24 @@ class DataManager {
     
     /// Function to provide data for the publishers.
     private func addDuplicateData () {
-        //        let items = Array(0...10)
-        let items = [1,2,3,4,5,5,6,7,8,9,10]
+        let items :[Int] = [1,2,3,4,5,6,7,8,9,10]
         for x in items.indices {
             DispatchQueue.main.asyncAfter(deadline: .now()+Double(x)) {
                 self.passThroughValue.send(items[x])
-                //                if (x>3) && (x<8) {
-                //                    self.intPublisher.send(999)
-                //                    self.boolPublisher.send(true)
-                //                }
-                //                else {
-                //                    self.boolPublisher.send(false)
-                //                }
+                //                                if (x>3) && (x<8) {
+                //                                    self.intPublisher.send(9099)
+                //                                    self.boolPublisher.send(true)
+                //                                }
+                //                                else {
+                //                                    self.boolPublisher.send(false)
+                //                                }
                 if x == items.indices.last {
                     self.passThroughValue.send(completion: .finished)
                     print("Subscription ends here...")
                 }
             }
         }
+        
         //Instance to illustrate the usage of ".debounce" the timing operator.
         /*
          DispatchQueue.main.asyncAfter(deadline: .now() + 0) {

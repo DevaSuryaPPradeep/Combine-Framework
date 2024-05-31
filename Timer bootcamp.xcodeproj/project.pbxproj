@@ -128,6 +128,7 @@
 				5A7033882BC0085F0061F91F /* Normal Timer */,
 				5A7033872BC0081E0061F91F /* Publisher+sink modifier */,
 				5ADC68DE2BC3D431005BBDF3 /* Publishers */,
+				5A5DFF272BCD0E9A0083227A /* Future Publisher */,
 				5A7033892BC008B60061F91F /* CountDown TImer */,
 				5A7033592BBFD1ED0061F91F /* Timer_bootcampApp.swift */,
 				5A70335D2BBFD1F00061F91F /* Assets.xcassets */,
@@ -234,7 +235,6 @@
 			isa = PBXGroup;
 			children = (
 				5ADC68DD2BC3D3F5005BBDF3 /* JustPublisher */,
-				5A5DFF272BCD0E9A0083227A /* Future Publisher */,
 				5AA745C62BC535E10073C5C4 /* CurrentValuePublisher */,
 			);
 			path = Publishers;

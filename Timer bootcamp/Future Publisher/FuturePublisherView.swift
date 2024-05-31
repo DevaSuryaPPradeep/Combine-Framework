@@ -22,7 +22,6 @@ struct FuturePublisherView: View {
     FuturePublisherView()
 }
 
-
 /// ViewModel.
 class FuturesPublisherViewModel :ObservableObject{
     
@@ -37,16 +36,6 @@ class FuturesPublisherViewModel :ObservableObject{
     
     /// Function to create a subscriber.
     func downloadData() {
-        
-        /*
-         getCombinePublisher()
-         .sink { _ in
-         } receiveValue: { [weak self]  returnedValue in
-         self?.title = returnedValue
-         }
-         .store(in: &cancellable)
-         */
-        
         getFuturePublisher()
             .sink(receiveCompletion: { completion in
                 // Handle completion

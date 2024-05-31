@@ -92,7 +92,7 @@ class TimerViewmodel: ObservableObject {
                 self.count += 1
                 //                if self.count >= 10 {
                 //                    for item in cancellables {
-                //                       item.cancel()
+                //                        item.cancel()
                 //                    }
                 //                }
             }
@@ -102,7 +102,7 @@ class TimerViewmodel: ObservableObject {
     /// Function to check text contains 3 characters.
     func addTextFieldSubscriber () {
         $textFieldText
-            .debounce(for: 0.5, scheduler: DispatchQueue.main)
+           .debounce(for: 0, scheduler: DispatchQueue.main)
             .map{(textValue) -> Bool in
                 if textValue.count > 3 {
                     return true
